@@ -1,3 +1,3 @@
 # 30DAYSOFCODE
 
-[home](/app/views.py/home)
+[home](/app/views.py)
