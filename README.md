@@ -1,3 +1,3 @@
 # 30DAYSOFCODE
 
-[home route](/app/views.py)
+[Day 2](/app/views.py)
