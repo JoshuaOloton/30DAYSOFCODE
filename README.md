@@ -1,3 +1,3 @@
 # 30DAYSOFCODE
 
-[Day 4](/app/main/__init__.py)
+[Day 4](/main/__init__.py)
