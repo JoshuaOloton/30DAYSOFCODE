@@ -1,13 +1,12 @@
-from app import app
 from flask import render_template
+from main.user import user
 
-
-@app.route('/')
-@app.route('/home')
+@user.route('/')
+@user.route('/home')
 def home():
     name = 'Joshua Oloton'
     return render_template('index.html', name=name)
 
-@app.route('/home/<username>')
+@user.route('/home/<username>')
 def home_greeting(username):
     return render_template('index.html', username=username)
