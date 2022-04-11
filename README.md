@@ -1,3 +1,3 @@
 # 30DAYSOFCODE
 
-[Day 5](/main/models.py)
+[Day 6](/main/user/views.py)
