@@ -3,7 +3,7 @@ from main.user import user
 from main.user.forms import SignUpForm, LogInForm
 from main.models import User
 from main import db
-from main.decorators import login_required
+from decorators import login_required
 from sqlalchemy.exc import IntegrityError
 
 @user.route('/')
