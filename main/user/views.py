@@ -17,6 +17,7 @@ def home_greeting(username):
     return render_template('index.html', username=username)
 
 @user.route('/signup', methods=['GET','POST'])
+@login_required
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
@@ -43,7 +44,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.verify_password(form.password.data):
             # confirm user is already in database and password matches
-            session['logged in'] = True
+            session['logged_in'] = True
             session['id'] = user.id
             flash('You are logged in', 'success')
             return redirect(url_for('user.home'))
@@ -52,10 +53,10 @@ def login():
 
 @user.route('/logout', methods=['GET','POST'])
 def logout():
-    if 'user' not in session:
+    if 'id' not in session:
         flash('You are not logged in', 'danger')
         return redirect(url_for('user.login'))
     session.pop('id',None)
-    session['logged in'] = False
+    session['logged_x`in'] = False
     flash('You are logged out', 'danger')
     return redirect(url_for('user.home'))

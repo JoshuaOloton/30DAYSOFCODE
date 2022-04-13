@@ -1,11 +1,14 @@
 from functools import wraps
-from flask import abort, g, redirect, request, url_for
+from flask import redirect, request, url_for, session, flash
 
 
 def login_required(f):
     @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if g.user is None:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
+    def wrap(*args, **kwargs):
+        if 'id' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first",'danger')
+            return redirect(url_for('user.login'))
+
+    return wrap
