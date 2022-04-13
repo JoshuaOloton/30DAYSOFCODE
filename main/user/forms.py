@@ -10,15 +10,9 @@ class SignUpForm(FlaskForm):
     password = PasswordField('Password',validators=[InputRequired()])
     confirm_password = PasswordField('Confirm Password',validators=[InputRequired(),EqualTo('password')])
     submit = SubmitField('Sign Up')
+    
 
-    # check if username alreafy exists
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('username is taken!')
-
-    # check if username alreafy exists
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user:
-            raise ValidationError('email is taken!')
+class LogInForm(FlaskForm):
+    email = StringField('Email',validators=[InputRequired(), Email()])
+    password = PasswordField('Password',validators=[InputRequired()])
+    submit = SubmitField('Log In')

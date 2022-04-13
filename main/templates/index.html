@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block body %}
+{% block page_content %}
 <p>
-    Hello!, {% if username %}{{ username }}{% elif name %}{{ name }}{% endif %}
+    Hello! {% if username %}{{ username }}{% elif name %}{{ name }}{% endif %}
 </p>
 {% endblock %}

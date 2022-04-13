@@ -1,3 +1,3 @@
 # 30DAYSOFCODE
 
-[Day 6](/main/user/views.py)
+[Day 7](/main/user/views.py)

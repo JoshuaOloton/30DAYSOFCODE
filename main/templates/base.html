@@ -1,6 +1,19 @@
-{% extends 'bootstrap/base.html' %}
+{% extends "bootstrap/base.html" %}
 
+{% block title %}30 DAYS OF CODE{% endblock %}
 
-{% block title %}30DAYSOFCODE - DAY 6{% endblock %}
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}   
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
 
-{% block body %}{% endblock %}
