@@ -2,6 +2,6 @@
 
 {% block page_content %}
 <p>
-    Hello! {% if username %}{{ username }}{% elif name %}{{ name }}{% endif %}
+    Hello! {% if name %}{{ name }}{% else %}Stranger, please log in to your account{% endif %}
 </p>
 {% endblock %}

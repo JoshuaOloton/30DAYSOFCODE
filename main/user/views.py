@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, session, flash
+from flask import render_template, redirect, url_for, session, flash, request
 from main.user import user
 from main.user.forms import SignUpForm, LogInForm
 from main.models import User
@@ -9,15 +9,18 @@ from sqlalchemy.exc import IntegrityError
 @user.route('/')
 @user.route('/home')
 def home():
-    name = 'Joshua Oloton'
+    name = None
+    if session.get('id'): 
+        # if user is logged in, display username in greeting message
+        user = User.query.get(session['id'])
+        name = user.username
     return render_template('index.html', name=name)
 
-@user.route('/home/<username>')
-def home_greeting(username):
-    return render_template('index.html', username=username)
+@user.route('/home/<name>')
+def home_greeting(name):
+    return render_template('index.html', name=name)
 
 @user.route('/signup', methods=['GET','POST'])
-@login_required
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
@@ -42,12 +45,16 @@ def login():
     form = LogInForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        
         if user and user.verify_password(form.password.data):
             # confirm user is already in database and password matches
             session['logged_in'] = True
             session['id'] = user.id
             flash('You are logged in', 'success')
-            return redirect(url_for('user.home'))
+            next = request.args.get('next')
+            if next is None:
+                next = url_for('user.home')
+            return redirect(next)
         flash('user does not exist', 'danger')
     return render_template('login.html', form=form)
 
@@ -56,7 +63,14 @@ def logout():
     if 'id' not in session:
         flash('You are not logged in', 'danger')
         return redirect(url_for('user.login'))
-    session.pop('id',None)
-    session['logged_x`in'] = False
+    session.pop('id', None)
+    session['logged_in'] = False
     flash('You are logged out', 'danger')
     return redirect(url_for('user.home'))
+
+@user.route('/dashboard')
+@login_required
+def dashboard():
+    user = User.query.get(session['id'])
+    posts = user.posts
+    return render_template('dashboard.html',posts=posts)

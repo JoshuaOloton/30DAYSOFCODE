@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block page_content %}
+
+<h4 id="dashboard" >User's posts</h4>
+<a href="#" class="btn btn-sm btn-outline-secondary">New Post</a>
+
+<div class="post-tabs">
+    <ul class="posts">
+        {% for post in posts %}
+        <li class="post">
+            <div class="post-content">
+                <div class="post-author"><a href="#">{{ post.author.username }}</a></div>
+                <div class="post-date"><a href="#">{{ post.date_created.strftime("%b-%d-%y") }}</a></div>
+                <div class="post-body">{{ post.body }}</div>
+            </div>
+            <div class="post-footer">
+                <a href="#" class="btn btn-sm btn-outline-secondary">Edit Post</a>
+                <a href="#" class="btn btn-sm btn-outline-secondary">Delete Post</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
