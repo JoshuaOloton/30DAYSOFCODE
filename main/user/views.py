@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, session, flash, request
 from main.user import user
 from main.user.forms import SignUpForm, LogInForm
-from main.models import User
+from main.models import User, Post
 from main import db
 from decorators import login_required
 from sqlalchemy.exc import IntegrityError
@@ -43,9 +43,11 @@ def signup():
 @user.route('/login', methods=['GET','POST'])
 def login():
     form = LogInForm()
+    if session.get('id'):
+        flash('You are already logged in', 'success')
+        return redirect(url_for('user.dashboard'))
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        
         if user and user.verify_password(form.password.data):
             # confirm user is already in database and password matches
             session['logged_in'] = True
@@ -55,7 +57,8 @@ def login():
             if next is None:
                 next = url_for('user.home')
             return redirect(next)
-        flash('user does not exist', 'danger')
+        flash('user does not exist. Please sign up', 'danger')
+        return redirect(url_for('user.signup'))
     return render_template('login.html', form=form)
 
 @user.route('/logout', methods=['GET','POST'])
@@ -74,3 +77,4 @@ def dashboard():
     user = User.query.get(session['id'])
     posts = user.posts
     return render_template('dashboard.html',posts=posts)
+    

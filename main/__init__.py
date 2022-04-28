@@ -16,4 +16,7 @@ def create_app(config_filename):
     from main.user import user as user_blueprint
     app.register_blueprint(user_blueprint)
 
+    from main.post import post as post_blueprint
+    app.register_blueprint(post_blueprint)
+
     return app

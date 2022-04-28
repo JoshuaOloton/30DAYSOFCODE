@@ -1,3 +1,5 @@
 # 30DAYSOFCODE
 
-[Day 9](main/user/views.py)
+[View Function](main/post/views.py)
+
+[Templates](main/templates/new_post.html)
