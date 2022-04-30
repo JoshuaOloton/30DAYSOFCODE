@@ -61,6 +61,17 @@ def login():
         return redirect(url_for('user.signup'))
     return render_template('login.html', form=form)
 
+# logout route
+@user.route('/logout', methods=['GET','POST'])
+def logout():
+    if 'id' not in session:
+        flash('You are not logged in', 'danger')
+        return redirect(url_for('user.login'))
+    session.pop('id', None)
+    session['logged_in'] = False
+    flash('You are logged out', 'danger')
+    return redirect(url_for('user.home'))
+
 
 @user.route('/dashboard')
 @login_required
