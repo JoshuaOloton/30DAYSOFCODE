@@ -37,3 +37,16 @@ def edit_post(id):
         flash('Edit Successful', 'success')
         return redirect(url_for('user.dashboard'))
     return render_template('new_post.html', form=form, title = 'Edit Post')
+
+@post.route('/delete/post/<int:id>')
+@login_required
+def delete_post(id):
+    post = Post.query.get(id)
+    user = User.query.get(session['id'])
+    # abort operation if a user attempts to edit another user's postif user != post.author:
+    if user != post.author:
+        return abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted', 'danger')
+    return redirect(url_for('user.dashboard'))

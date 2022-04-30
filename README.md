@@ -1,6 +1,4 @@
 # 30DAYSOFCODE
 
-### DAY 11
+### DAY 12
 [View Function](main/post/views.py)
-
-[Templates](main/templates/new_post.html)

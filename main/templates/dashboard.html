@@ -20,7 +20,7 @@
             </div>
             <div class="post-footer">
                 <a href="{{ url_for('post.edit_post', id = post.id) }}" class="btn btn-sm btn-outline-secondary">Edit Post</a>
-                <a href="#" class="btn btn-sm btn-outline-secondary">Delete Post</a>
+                <a href="{{ url_for('post.delete_post', id = post.id) }}" class="btn btn-sm btn-outline-secondary">Delete Post</a>
             </div>
         </li>
         {% endfor %}
