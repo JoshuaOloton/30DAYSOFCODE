@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, InputRequired, Email, EqualTo, Leng
 from main.models import User
 
 
-class NewPostForm(FlaskForm):
+class PostForm(FlaskForm):
     title = StringField('Title',validators=[InputRequired(), Length(min=5)])
     body = TextAreaField('Content',validators=[InputRequired(), Length(min=20)])
-    submit = SubmitField('Create Post')
+    submit = SubmitField('Submit')
