@@ -1,4 +1,4 @@
 # 30DAYSOFCODE
 
-### DAY 12
-[View Function](main/post/views.py)
+### DAY 13
+[View Function](main/user/views.py)
